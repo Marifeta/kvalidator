@@ -6,6 +6,10 @@ package kvalidator
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
 import java.awt.geom.Arc2D
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.Month
 import java.util.jar.Attributes
 
 class Library {
@@ -125,7 +129,7 @@ class Min(override val value: Int) : Rule() {
     }
 }
 
-class IsNumeric(override val value: Any) : Rule() {
+class IsNumeric(override val value: Any = "") : Rule() {
     override val title = "isNumeric"
     override fun validate(data: JsonElement?): Boolean {
         return when (data) {
@@ -135,6 +139,24 @@ class IsNumeric(override val value: Any) : Rule() {
                     c.isString -> false
                     data.booleanOrNull != null || data.isNull -> false
                     data.doubleOrNull != null -> true
+                    else -> false
+                }
+            }
+            else -> false
+        }
+    }
+}
+
+class IsInteger(override val value: Any = "") : Rule() {
+    override val title = "isInteger"
+    override fun validate(data: JsonElement?): Boolean {
+        return when (data) {
+            is JsonPrimitive -> {
+                val c = data as JsonLiteral
+                when {
+                    c.isString -> false
+                    data.booleanOrNull != null || data.isNull -> false
+                    data.intOrNull != null -> true
                     else -> false
                 }
             }
@@ -197,6 +219,129 @@ class Between(override val value: Int, val value2: Int) : Rule() {
     }
 }
 
+class IsBoolean(override val value: Any) : Rule() {
+    override val title: String = "isBoolean"
+    override fun validate(data: JsonElement?): Boolean {
+        return when (data) {
+            is JsonPrimitive -> {
+                val c = data as JsonLiteral
+                when {
+                    c.isString -> false
+                    data.doubleOrNull != null -> false
+                    data.booleanOrNull != null -> true
+                    else -> false
+                }
+            }
+            else -> false
+        }
+    }
+}
+
+class Alpha(override val value: Any = "") : Rule() {
+    override val title: String = "alpha"
+    override fun validate(data: JsonElement?): Boolean {
+        return when (data) {
+            is JsonPrimitive -> {
+                val c = data as JsonLiteral
+                when {
+                    data.booleanOrNull != null -> false
+                    c.isString -> {
+                        val regex = Regex(pattern = """[A-Za-zА-Яа-яёЁ]+$""")
+                        return regex.matches(input = data.content)
+                    }
+                    else -> false
+                }
+            }
+            else -> false
+        }
+    }
+}
+class AlphaNum(override val value: Any = "") : Rule() {
+    override val title: String = "alphaNum"
+    override fun validate(data: JsonElement?): Boolean {
+        return when (data) {
+            is JsonPrimitive -> {
+                val c = data as JsonLiteral
+                when {
+                    data.booleanOrNull != null -> false
+                    c.isString || data.doubleOrNull != null-> {
+                        val regex = Regex(pattern = """[A-Za-zА-Яа-яёЁ0-9]+$""")
+                        return regex.matches(input = data.content)
+                    }
+                    else -> false
+                }
+            }
+            else -> false
+        }
+    }
+}
+
+class AlphaDash(override val value: Any = "") : Rule() {
+    override val title: String = "alphaDash"
+    override fun validate(data: JsonElement?): Boolean {
+        return when (data) {
+            is JsonPrimitive -> {
+                val c = data as JsonLiteral
+                when {
+                    data.booleanOrNull != null -> false
+                    c.isString || data.doubleOrNull != null-> {
+                        val regex = Regex(pattern = """[A-Za-zА-Яа-яёЁ0-9_\-]+$""")
+                        return regex.matches(input = data.content)
+                    }
+                    else -> false
+                }
+            }
+            else -> false
+        }
+    }
+}
+
+class Url(override val value: Any = "") : Rule() {
+    override val title: String = "url"
+    override fun validate(data: JsonElement?): Boolean {
+        return when (data) {
+            is JsonPrimitive -> {
+                val c = data as JsonLiteral
+                when {
+                    data.booleanOrNull != null -> false
+                    c.isString -> {
+                        val regex = Regex(
+                                pattern = """https?://(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)"""
+                        )
+                        val url = regex.find(input = data.content)?.value.orEmpty()
+                        return url.isNotEmpty()
+                    }
+                    else -> false
+                }
+            }
+            else -> false
+        }
+    }
+}
+
+class Email(override val value: Any = "") : Rule() {
+    override val title: String = "email"
+    override fun validate(data: JsonElement?): Boolean {
+        return when (data) {
+            is JsonPrimitive -> {
+                val c = data as JsonLiteral
+                when {
+                    data.booleanOrNull != null -> false
+                    c.isString -> {
+                        val regex = Regex(
+                                pattern = """^(?!\.)\("([^"\r\\]|\\["\r\\])*"|\([-a-z0-9!#${'$'}%&'*+/=?^_`{|}~] |\(?@[a-z0-9][\w.-]*[a-z0-9]\.[a-z][a-z.]*[a-z]$"""
+                        )
+                        val email = regex.find(input = data.content)?.value.orEmpty()
+                        return email.isNotEmpty()
+                    }
+                    else -> false
+                }
+            }
+            else -> false
+        }
+    }
+}
+
 class Accepted(override val value: Any) : Rule() {
     override val title: String = "accepted"
     override fun validate(data: JsonElement?): Boolean {
@@ -209,6 +354,40 @@ class Accepted(override val value: Any) : Rule() {
                     c.isString && data.content == "1"-> true
                     data.boolean -> data.boolean
                     data.doubleOrNull != null && data.double == 1.00 -> true
+                    else -> false
+                }
+            }
+            else -> false
+        }
+    }
+}
+
+class IsArray(override val value: Any = "") : Rule() {
+    override val title: String = "isArray"
+    override fun validate(data: JsonElement?): Boolean {
+        return when (data) {
+            is JsonArray -> {
+                return true
+            }
+            else -> false
+        }
+    }
+}
+
+class IsDate(override val value: Any = "") : Rule() {
+    override val title: String = "isDate"
+    override fun validate(data: JsonElement?): Boolean {
+        return when (data) {
+            is JsonPrimitive -> {
+                val c = data as JsonLiteral
+                when {
+                    c.isString -> {
+                        // проверяем точки, количество цифр, заменяем точки на тире и парсим дату
+                        val date = LocalDate.parse(data.content)
+                        println("date")
+                        println(date)
+                        return true
+                    }
                     else -> false
                 }
             }

@@ -21,11 +21,57 @@ class LibraryTest {
     @Test
     fun sizeNotEqualToUserNumber() {
         val jsonTestData: JsonElement = JsonObject(mapOf("age" to JsonPrimitive(-10), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))
-        val date = Date()
-        println(date)
         val rules = mapOf<String, List<Rule>>("age" to listOf(Size(-10)))
         val result = Validator(jsonTestData, rules).validate()
         assertTrue(result, "result should return true")
+    }
+    @Test
+    fun alphaFun() {
+        val jsonTestData: JsonElement = JsonObject(mapOf("gg" to JsonPrimitive("jjJJjj"), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))
+        val rules = mapOf<String, List<Rule>>("gg" to listOf(Alpha()))
+        val result = Validator(jsonTestData, rules).validate()
+    }
+    @Test
+    fun checkAlphaNum() {
+        val jsonTestData: JsonElement = JsonObject(mapOf("gg" to JsonPrimitive("hhHHFhh"), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))
+        val rules = mapOf<String, List<Rule>>("gg" to listOf(AlphaNum()))
+        val result = Validator(jsonTestData, rules).validate()
+    }
+    @Test
+    fun checkAlphaDash() {
+        val jsonTestData: JsonElement = JsonObject(mapOf("gg" to JsonPrimitive("-_AAДДдhhh5"), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))
+        val rules = mapOf<String, List<Rule>>("gg" to listOf(AlphaDash()))
+        val result = Validator(jsonTestData, rules).validate()
+    }
+    @Test
+    fun checkUrl() {
+        val jsonTestData: JsonElement = JsonObject(mapOf("url" to JsonPrimitive("https://google.com"), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))
+        val rules = mapOf<String, List<Rule>>("url" to listOf(Url()))
+        val result = Validator(jsonTestData, rules).validate()
+    }
+    @Test
+    fun checkEmail() {
+        val jsonTestData: JsonElement = JsonObject(mapOf("email" to JsonPrimitive("ggg@kk998.com"), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))
+        val rules = mapOf<String, List<Rule>>("email" to listOf(Email()))
+        val result = Validator(jsonTestData, rules).validate()
+    }
+    @Test
+    fun checkInteger() {
+        val jsonTestData: JsonElement = JsonObject(mapOf("int" to JsonPrimitive(8), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))
+        val rules = mapOf<String, List<Rule>>("int" to listOf(IsInteger()))
+        val result = Validator(jsonTestData, rules).validate()
+    }
+    @Test
+    fun checkArray() {
+        val jsonTestData: JsonElement = JsonObject(mapOf("array" to JsonArray(listOf(JsonPrimitive("hhHHFhh")))))
+        val rules = mapOf<String, List<Rule>>("array" to listOf(IsArray()))
+        val result = Validator(jsonTestData, rules).validate()
+    }
+    @Test
+    fun checkDate() {
+        val jsonTestData: JsonElement = JsonObject(mapOf("date" to JsonPrimitive("uuu"), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))
+        val rules = mapOf<String, List<Rule>>("date" to listOf(IsDate()))
+        val result = Validator(jsonTestData, rules).validate()
     }
 
 //    @Test
