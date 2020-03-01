@@ -3,28 +3,45 @@
  */
 package kvalidator
 
-import kotlinx.serialization.Required
 import kotlinx.serialization.json.*
-import java.util.*
+import kotlinx.serialization.json.Json
+import kvalidator.i18n.ru
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 
 class LibraryTest {
+    val json = Json(JsonConfiguration.Stable)
+    val data = this::class.java.getResource("/data.json").readText().let { json.parseJson(it) }.jsonObject
+
 
     @Test
-    fun testSomeLibraryMethod() {
-        val classUnderTest = Library()
-        assertTrue(classUnderTest.someLibraryMethod(), "someLibraryMethod should return 'true'")
-    }
-    @Test
     fun sizeNotEqualToUserNumber() {
-        val jsonTestData: JsonElement = JsonObject(mapOf("age" to JsonPrimitive(-10), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))
         val rules = mapOf<String, List<Rule>>("age" to listOf(Size(-10)))
-        val result = Validator(jsonTestData, rules).validate()
-        assertTrue(result, "result should return true")
+        assertTrue(Validator(data["sizeNotEqualToUserNumber"]!!, rules, ru).validate(), "result should return true")
     }
+
+    @Test
+    fun betweenRuleValid() {
+        val rules = mapOf<String, List<Rule>>(
+                "one_number" to listOf(Between(5, 30)),
+                "one_string" to listOf(Between(3, 7))
+        )
+        assertTrue(Validator(data["between_data"]!!, rules, ru).validate(), "result should return true")
+    }
+
+    @Test
+    fun betweenRuleNotValid() {
+        val rules = mapOf<String, List<Rule>>(
+                "one_number" to listOf(Between(1, 3)),
+                "one_string" to listOf(Between(6, 14))
+        )
+
+        assertFalse(Validator(data["between_data"]!!, rules, ru).validate(), "result should return false")
+    }
+
+
     @Test
     fun alphaFun() {
         val jsonTestData: JsonElement = JsonObject(mapOf("gg" to JsonPrimitive("jjJJjj"), "bio" to JsonObject(mapOf("name" to JsonPrimitive("Diego")))))

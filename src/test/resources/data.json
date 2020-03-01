@@ -1,0 +1,12 @@
+{
+  "sizeNotEqualToUserNumber": {
+    "age": -10,
+    "bio": {
+      "name": "Diego"
+    }
+  },
+  "between_data": {
+    "one_number": 18,
+    "one_string": "qwerty"
+  }
+}
