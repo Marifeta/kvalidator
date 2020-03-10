@@ -14,19 +14,19 @@ class Between(val min: Int, val max: Int) : Rule() {
     }
 }
 
-class Min(val value: Int) : Rule() {
+class Min(private val value: Int) : Rule() {
     override val name: String = "min"
     override fun validate(data: JsonObject?, attribute: String): Boolean {
         val elSize = getSize(data?.get(attribute))
         val userSize = value.toDouble()
-        if (elSize != null && elSize > 0) {
+        if (elSize != null) {
             return elSize >= userSize
         }
         return true
     }
 }
 
-class Max(val value: Int) : Rule() {
+class Max(private val value: Int) : Rule() {
     override val name: String = "max"
     override fun validate(data: JsonObject?, attribute: String): Boolean {
         if (data == null) return true
@@ -34,14 +34,14 @@ class Max(val value: Int) : Rule() {
 
         val elSize = getSize(element)
         val userSize = value.toDouble()
-        if (elSize != null && elSize > 0) {
+        if (elSize != null) {
             return elSize <= userSize
         }
-        return true
+        return false
     }
 }
 
-class Size(val value: Int) : Rule() {
+class Size(private val value: Int) : Rule() {
     override val name: String = "size"
     override fun validate(data: JsonObject?, attribute: String): Boolean {
         val elSize = getSize(data?.get(attribute))

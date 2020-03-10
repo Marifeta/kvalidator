@@ -1,14 +1,4 @@
 {
-  "sizeNotEqualToUserNumber": {
-    "age": -10,
-    "bio": {
-      "name": "Diego"
-    }
-  },
-  "between_data": {
-    "one_number": 18,
-    "one_string": "qwerty"
-  },
   "basic_types": {
     "int": 2323,
     "int_min": -432,
@@ -100,5 +90,20 @@
       4.5,
       false
     ]
+  },
+  "value_properties": {
+    "between": {
+      "one_number": 18,
+      "one_string": "qwerty"
+    },
+    "size": {
+      "v1": -10,
+      "v2": [
+        1,
+        2,
+        4
+      ],
+      "v3": "example"
+    }
   }
 }
