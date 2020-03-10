@@ -48,5 +48,57 @@
     "date": [
       "2011-12-03T10:15:30"
     ]
+  },
+  "field_properties": {
+    "required": [
+      "string",
+      25,
+      false,
+      [
+        1,
+        2,
+        3
+      ],
+      {
+        "d1": 1
+      }
+    ],
+    "required_empty": [
+      "",
+      null,
+      {},
+      []
+    ],
+    "confirmed": {
+      "field": "example 1234",
+      "field_confirmation": "example 1234",
+      "another": 555
+    },
+    "confirmed_false": [
+      {
+        "field": "example",
+        "field_confirmation": "wrong"
+      },
+      {
+        "field": "example",
+        "another": "wrong"
+      }
+    ],
+    "accepted": [
+      "yes",
+      "1",
+      "true",
+      "on",
+      1,
+      true,
+      1.0
+    ],
+    "accepted_false": [
+      "no",
+      "test",
+      0,
+      4.5,
+      false
+    ]
   }
 }
