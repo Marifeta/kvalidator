@@ -1,7 +1,8 @@
 package kvalidator.i18n
 
 import kotlinx.serialization.json.*
-import kvalidator.*
+import kvalidator.rules.Between
+import kvalidator.rules.Rule
 
 typealias Dictionary = Map<String, String>
 
@@ -36,14 +37,13 @@ object Lang {
             // TODO maybe we can move it to rule implementation and leave only common translate?
             is Between -> {
                 messageByType(dictionary, rule, item)
-                        .replace(":attribute", attribute)
-                        .replace(":min", rule.min.toString())
-                        .replace(":max", rule.max.toString())
+                    .replace(":attribute", attribute)
+                    .replace(":min", rule.min.toString())
+                    .replace(":max", rule.max.toString())
             }
             else -> {
                 (dictionary[rule.name] ?: fallbackDictionary[rule.name] ?: missingMessage(rule, item))
-                        .replace(":attribute", attribute)
-
+                    .replace(":attribute", attribute)
             }
         }
     }

@@ -1,12 +1,109 @@
 {
-  "sizeNotEqualToUserNumber": {
-    "age": -10,
-    "bio": {
-      "name": "Diego"
-    }
+  "basic_types": {
+    "int": 2323,
+    "int_min": -432,
+    "int_string": "89",
+    "int_string_min": "-25",
+    "str": "example string",
+    "str_empty": "",
+    "bool": false,
+    "list": [
+      "a1",
+      11
+    ],
+    "dict": {
+      "b2": null,
+      "b5": 22
+    },
+    "null": null,
+    "float": 3.14,
+    "float_min": -5.33,
+    "float_digit": 6.0,
+    "zero": 0
   },
-  "between_data": {
-    "one_number": 18,
-    "one_string": "qwerty"
+  "web_types": {
+    "url": [
+      "https://google.com",
+      "http://google.com/",
+      "https://laravel.com/docs/6.x/validation#rule-email",
+      "https://my.bundle.space/5e5d3c13d11692721404b1fa/forms",
+      "https://www.opennet.ru/opennews/art.shtml?num=52481"
+    ],
+    "email": [
+      "test@gmail.com",
+      "A-ra.name@domain.lo"
+    ]
+  },
+  "date_types": {
+    "date": [
+      "2011-12-03T10:15:30"
+    ]
+  },
+  "field_properties": {
+    "required": [
+      "string",
+      25,
+      false,
+      [
+        1,
+        2,
+        3
+      ],
+      {
+        "d1": 1
+      }
+    ],
+    "required_empty": [
+      "",
+      null,
+      {},
+      []
+    ],
+    "confirmed": {
+      "field": "example 1234",
+      "field_confirmation": "example 1234",
+      "another": 555
+    },
+    "confirmed_false": [
+      {
+        "field": "example",
+        "field_confirmation": "wrong"
+      },
+      {
+        "field": "example",
+        "another": "wrong"
+      }
+    ],
+    "accepted": [
+      "yes",
+      "1",
+      "true",
+      "on",
+      1,
+      true,
+      1.0
+    ],
+    "accepted_false": [
+      "no",
+      "test",
+      0,
+      4.5,
+      false
+    ]
+  },
+  "value_properties": {
+    "between": {
+      "one_number": 18,
+      "one_string": "qwerty"
+    },
+    "size": {
+      "v1": -10,
+      "v2": [
+        1,
+        2,
+        4
+      ],
+      "v3": "example"
+    }
   }
 }
