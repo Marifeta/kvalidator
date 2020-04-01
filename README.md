@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.marifeta:kvalidator:0.0.1")
+    implementation("com.github.marifeta:kvalidator:0.0.2")
 }
 ```
 
