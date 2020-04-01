@@ -2,7 +2,7 @@
 import java.util.Date
 
 val LIBRARY_VERSION_NAME = "0.0.1"
-val GROUP_ID = "com.github.Marifeta"
+val GROUP_ID = "com.github.marifeta"
 val ARTIFACT_ID = rootProject.name
 val BINTRAY_REPOSITORY = "generic"
 val BINTRAY_ORGINIZATION = "murphy"
@@ -10,9 +10,9 @@ val KOTLINX_SERIALIZATION_RUNTIME = "0.14.0"
 val SHORT_DESC = """
     Validator for kotlin json serialization.
 """.trimIndent()
-val VCS_URL = "https://github.com/Marifeta/kvalidator.git"
-val WEBSITE_URL = "https://github.com/Marifeta/kvalidator"
-val ISSUE_TRACKER_URL = "https://github.com/Marifeta/kvalidator/issues"
+val VCS_URL = "https://github.com/marifeta/kvalidator.git"
+val WEBSITE_URL = "https://github.com/marifeta/kvalidator"
+val ISSUE_TRACKER_URL = "https://github.com/marifeta/kvalidator/issues"
 val CONTACT_EMAIL = "diksynox@gmail.com"
 
 buildscript {
