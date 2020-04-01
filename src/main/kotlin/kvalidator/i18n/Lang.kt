@@ -29,7 +29,7 @@ object Lang {
     }
 
     fun message(dictionary: Dictionary, rule: Rule, data: JsonObject, attribute: String): String {
-        val item = data[attribute]!!
+        val item = data[attribute]
         val ruleName = rule.name
 
         return when (rule) {
