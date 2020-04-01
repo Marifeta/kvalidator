@@ -1,7 +1,7 @@
 
 import java.util.Date
 
-val LIBRARY_VERSION_NAME = "0.0.1"
+val LIBRARY_VERSION_NAME = "0.0.2"
 val GROUP_ID = "com.github.marifeta"
 val ARTIFACT_ID = rootProject.name
 val BINTRAY_REPOSITORY = "generic"
