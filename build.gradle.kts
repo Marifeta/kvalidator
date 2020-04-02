@@ -1,12 +1,12 @@
 
 import java.util.Date
 
-val LIBRARY_VERSION_NAME = "0.0.2"
+val LIBRARY_VERSION_NAME = "0.0.3"
 val GROUP_ID = "com.github.marifeta"
 val ARTIFACT_ID = rootProject.name
 val BINTRAY_REPOSITORY = "generic"
 val BINTRAY_ORGINIZATION = "murphy"
-val KOTLINX_SERIALIZATION_RUNTIME = "0.14.0"
+val KOTLINX_SERIALIZATION_RUNTIME = "0.20.0"
 val SHORT_DESC = """
     Validator for kotlin json serialization.
 """.trimIndent()
@@ -16,12 +16,10 @@ val ISSUE_TRACKER_URL = "https://github.com/marifeta/kvalidator/issues"
 val CONTACT_EMAIL = "diksynox@gmail.com"
 
 buildscript {
-    // ext.kotlin_version = '1.3.60'
     repositories { jcenter() }
-    val kotlin_version = "1.3.60"
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.60")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:1.3.60")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.71")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:1.3.71")
     }
 }
 /*
@@ -32,7 +30,7 @@ buildscript {
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.3.41"
+    id("org.jetbrains.kotlin.jvm") version "1.3.71"
     id("maven-publish")
     id("com.jfrog.bintray") version "1.8.4"
 }

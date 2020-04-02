@@ -52,7 +52,7 @@ class TestRulesWebTypes : LibraryTest() {
             mapOf(
                 "m1" to JsonPrimitive(23),
                 "m2" to JsonPrimitive("test.test@domain"),
-                "m3" to JsonPrimitive("test@domain.d"),
+                "m3" to JsonPrimitive("test@domain."),
                 "m4" to JsonPrimitive("domain_d.ru"),
                 "m5" to JsonPrimitive(true)
             )

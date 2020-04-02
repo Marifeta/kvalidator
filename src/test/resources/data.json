@@ -39,6 +39,11 @@
       "2011-12-03T10:15:30"
     ]
   },
+  "invalid_data": {
+    "invalid_email": "bad_email_com",
+    "long_email": "long12345678901234567890@qwerty.zetta",
+    "short_5_email": "x@x.z"
+  },
   "field_properties": {
     "required": [
       "string",
