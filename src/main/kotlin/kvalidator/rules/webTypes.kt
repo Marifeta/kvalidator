@@ -15,7 +15,7 @@ class Url : Rule() {
                     element.booleanOrNull != null -> false
                     element.isString -> {
                         val regex = Regex(
-                            pattern = """https?://(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)"""
+                                pattern = """https?://(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)"""
                         )
                         val url = regex.find(input = element.content)?.value.orEmpty()
                         return url.isNotEmpty()
@@ -40,10 +40,15 @@ class Email : Rule() {
                     element.booleanOrNull != null -> false
                     element.isString -> {
                         val regex = Regex(
-                            pattern = """^(?!\.)\("([^"\r\\]|\\["\r\\])*"|\([-a-z0-9!#${'$'}%&'*+/=?^_`{|}~] |\(?@[a-z0-9][\w.-]*[a-z0-9]\.[a-z][a-z.]*[a-z]$"""
+                                pattern = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                                        "\\@" +
+                                        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                                        "(" +
+                                        "\\." +
+                                        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                                        ")+"
                         )
-                        val email = regex.find(input = element.content)?.value.orEmpty()
-                        return email.isNotEmpty()
+                        return regex.matches(input = element.content)
                     }
                     else -> false
                 }

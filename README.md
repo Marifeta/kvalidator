@@ -2,10 +2,13 @@
 
 ## Why use kvalidator?
 
-* Works anywhere and everywhere. [llvn\native, browser, jvm, android, etc]
 * Readable and declarative validation rules.
 * Error messages with multilingual support.
 
+Support platform:
+ * JVM
+ * Android
+ 
 ## Installation
 ```kts
 repositories {
@@ -13,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.marifeta:kvalidator:0.0.2")
+    implementation("com.github.marifeta:kvalidator:0.0.3")
 }
 ```
 
@@ -34,9 +37,10 @@ val rules = mapOf<String, List<Rule>>(
         "isHuman" to listOf(IsBoolean()),
 )
 
-val validator = Validator(testJson, rules)
+val validator = Validator(testJson, rules, /* lang = en */)
 validator.validate() // true 
 
+// or
 if(!validator.validate()) {
     validator.errors.forEach {(attribute, messages)->
         messages.forEach { msg ->
@@ -50,10 +54,19 @@ if(!validator.validate()) {
 ```kt
 
 val firstError = validator.errors.first() // firstError or null
-val validator.errors.all() // mutableListOf(reason) or null
+val validator.errors // mutableListOf(reason) or null
 val errorCount = validator.errors.count // errors.size (int)
 
 ```
+#### Utils
+```kt
+parseRule("max:255"): Rule
+parseRules("required|max:255"): List<Rule>
+stringifyRules("required|email|max:15|min:8|size:8|boolean")
+stringifyRule("max:15")
+```
+
+
 ## Available Rules
 
 #### Alpha
@@ -95,6 +108,10 @@ val errorCount = validator.errors.count // errors.size (int)
 #### Email
  The field under validation must be formatted as an e-mail address.
 
+## Links
+- [Available Validation Rules](https://laravel.com/docs/5.8/validation#available-validation-rules)
+- [Описание правил на русском](https://laravel.ru/docs/v5/validation#%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5][https://laravel.ru/docs/v5/validation#%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5)
+- [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)
 
 ## License
  MIT

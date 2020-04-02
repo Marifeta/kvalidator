@@ -1,8 +1,7 @@
 package kvalidator.i18n
 
 import kotlinx.serialization.json.*
-import kvalidator.rules.Between
-import kvalidator.rules.Rule
+import kvalidator.rules.*
 
 typealias Dictionary = Map<String, String>
 
@@ -40,6 +39,24 @@ object Lang {
                     .replace(":attribute", attribute)
                     .replace(":min", rule.min.toString())
                     .replace(":max", rule.max.toString())
+            }
+            is Max -> {
+                messageByType(dictionary, rule, item)
+                        .replace(":attribute", attribute)
+                        .replace(":max", rule.value.toString())
+
+            }
+            is Min -> {
+                messageByType(dictionary, rule, item)
+                        .replace(":attribute", attribute)
+                        .replace(":min", rule.value.toString())
+
+            }
+            is Size -> {
+                messageByType(dictionary, rule, item)
+                        .replace(":attribute", attribute)
+                        .replace(":size", rule.value.toString())
+
             }
             else -> {
                 (dictionary[rule.name] ?: fallbackDictionary[rule.name] ?: missingMessage(rule, item))

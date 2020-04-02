@@ -15,7 +15,6 @@ class Error {
         } else {
             errors[attribute] = mutableListOf(reason)
         }
-        println(errors)
     }
 
     fun first(attribute: String): String? {
@@ -71,6 +70,7 @@ class Validator(
                     }
                 }
             }
+            is JsonLiteral -> println("null")
         }
         return inputErrors.count == 0
     }
