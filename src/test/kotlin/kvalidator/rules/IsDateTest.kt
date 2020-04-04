@@ -6,7 +6,7 @@ import kvalidator.Validator
 import kotlin.test.assertTrue
 import kotlin.test.Test
 
-class TestRulesDateTypes : LibraryTest() {
+class IsDateTest : LibraryTest() {
     private val testData = data.getObject("date_types")
 
     @Test

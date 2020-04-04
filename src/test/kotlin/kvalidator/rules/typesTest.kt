@@ -9,7 +9,7 @@ import kotlin.test.assertTrue
 import kotlin.test.Test
 
 @RunWith(Parameterized::class)
-class TestRulesBasicTypes(private val ruleClass: Rule, private val keyNames: List<String>) : LibraryTest() {
+class TestTypes(private val ruleClass: Rule, private val keyNames: List<String>) : LibraryTest() {
     private val testData = data.getObject("basic_types")
 
     companion object {

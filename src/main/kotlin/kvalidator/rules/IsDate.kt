@@ -3,8 +3,8 @@ package kvalidator.rules
 import kotlinx.serialization.json.JsonLiteral
 import kotlinx.serialization.json.JsonObject
 import java.time.LocalDate
-import java.time.format.DateTimeParseException
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 class IsDate : Rule() {
     override val name: String = "date"
@@ -18,7 +18,10 @@ class IsDate : Rule() {
                     element.isString -> {
                         // TODO: INCOMPLETE - need all formats
                         return try {
-                            LocalDate.parse(element.content, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                            LocalDate.parse(
+                                element.content,
+                                DateTimeFormatter.ISO_LOCAL_DATE_TIME
+                            )
                             true
                         } catch (ex: DateTimeParseException) {
                             false
@@ -29,12 +32,5 @@ class IsDate : Rule() {
             }
             else -> false
         }
-    }
-}
-
-class AfterDate : Rule() {
-    override val name: String = "after:date"
-    override fun validate(data: JsonObject?, attribute: String): Boolean {
-        TODO("Not yet implemented")
     }
 }
