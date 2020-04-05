@@ -2,7 +2,7 @@ package kvalidator.rules
 
 import kotlinx.serialization.json.JsonLiteral
 import kotlinx.serialization.json.JsonObject
-import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
@@ -16,9 +16,8 @@ class IsDate : Rule() {
             is JsonLiteral -> {
                 when {
                     element.isString -> {
-                        // TODO: INCOMPLETE - need all formats
                         return try {
-                            LocalDate.parse(
+                            LocalDateTime.parse(
                                 element.content,
                                 DateTimeFormatter.ISO_LOCAL_DATE_TIME
                             )
