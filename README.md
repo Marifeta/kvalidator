@@ -11,7 +11,7 @@ Support platform:
  
 ## Installation
 ```kts
-####Mandatory dependency kotlinx.serialization: 0.20.0
+Mandatory dependency kotlinx.serialization: 0.20.0
 
 repositories {
     jcenter()
