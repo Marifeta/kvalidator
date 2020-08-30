@@ -1,7 +1,6 @@
 package kvalidator.rules
 
-import kotlinx.serialization.json.JsonLiteral
-import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.*
 
 class IsInteger : Rule() {
     override val name = "integer"
@@ -10,7 +9,7 @@ class IsInteger : Rule() {
         if (!data.containsKey(attribute)) return true
 
         return when (val element = data[attribute]) {
-            is JsonLiteral -> when {
+            is JsonPrimitive -> when {
                 element.floatOrNull != null -> {
                     val converted = element.float
                     return (converted.compareTo(converted.toInt()) == 0)

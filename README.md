@@ -11,14 +11,17 @@ Support platform:
  
 ## Installation
 ```kts
-Required dependency kotlinx.serialization: 0.20.0
+
+Required dependencies 
+- kotlin 1.4
+- kotlinx.serialization: min 1.0.0-RC
 
 repositories {
     jcenter()
 }
 
 dependencies {
-    implementation("com.github.marifeta:kvalidator:0.0.3")
+    implementation("com.github.marifeta:kvalidator:1.0.0")
 }
 ```
 

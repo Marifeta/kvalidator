@@ -1,19 +1,18 @@
 package kvalidator.rules
 
+import kotlinx.serialization.json.*
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
 import kvalidator.LibraryTest
 import kvalidator.Validator
 
 class EmailTest : LibraryTest() {
-    private val testData = data.getObject("web_types")
+    private val testData = data.getValue("web_types").jsonObject
 
     @Test
     fun testValidEmail() {
-        for (email in testData.getArray("email")) {
+        for (email in testData.getValue("email").jsonArray) {
             val testJson = JsonObject(mapOf("email" to email))
             val rule = mapOf<String, List<Rule>>(
                 "email" to listOf(

@@ -1,19 +1,16 @@
 package kvalidator
 
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.JsonLiteral
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.*
 import kvalidator.rules.*
-import java.text.ParseException
+
 
 fun getSize(value: JsonElement?): Double? {
     return when (value) {
-        is JsonLiteral -> {
+        is JsonPrimitive -> {
             when {
                 value.isString -> value.content.length.toDouble()
                 value.doubleOrNull != null -> value.double
-                value.booleanOrNull != null || value.isNull -> null
+                value.booleanOrNull != null || value is JsonNull -> null
                 else -> null
             }
         }
@@ -45,7 +42,7 @@ fun parseRule(value: String): Rule {
         "boolean" -> IsBoolean()
         "integer" -> IsInteger()
         "url" -> Url()
-        else -> throw ParseException("unknown rule", 0)
+        else -> throw IllegalArgumentException("unknown rule")
     }
 }
 

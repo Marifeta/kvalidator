@@ -1,5 +1,7 @@
 package kvalidator.rules
 
+import kotlinx.serialization.json.getObject
+import kotlinx.serialization.json.jsonObject
 import kvalidator.LibraryTest
 import kvalidator.Validator
 import org.junit.runner.RunWith
@@ -10,7 +12,7 @@ import kotlin.test.Test
 
 @RunWith(Parameterized::class)
 class TestTypes(private val ruleClass: Rule, private val keyNames: List<String>) : LibraryTest() {
-    private val testData = data.getObject("basic_types")
+    private val testData = data.getValue("basic_types").jsonObject
 
     companion object {
         @JvmStatic
