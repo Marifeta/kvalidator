@@ -1,7 +1,7 @@
 package kvalidator.rules
 
-import kotlinx.serialization.json.JsonLiteral
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 
 class Confirmed : Rule() {
     override val name: String = "confirmed"
@@ -14,7 +14,7 @@ class Confirmed : Rule() {
         val elementConfirm = data[confirmAttr]
 
         return when (val element = data[attribute]) {
-            is JsonLiteral -> {
+            is JsonPrimitive -> {
                 when (element) {
                     elementConfirm -> true
                     else -> false

@@ -1,6 +1,5 @@
 package kvalidator.rules
 
-// import kvalidator.getSize
 import kotlinx.serialization.json.JsonObject
 
 class NotIn(val value: Int, val value2: Int) : Rule() {

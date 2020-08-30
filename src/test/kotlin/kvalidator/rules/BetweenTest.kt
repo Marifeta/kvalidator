@@ -1,5 +1,7 @@
 package kvalidator.rules
 
+import kotlinx.serialization.json.getObject
+import kotlinx.serialization.json.jsonObject
 import kvalidator.LibraryTest
 import kotlin.test.Test
 import kotlin.test.assertFalse
@@ -7,8 +9,8 @@ import kotlin.test.assertTrue
 import kvalidator.Validator
 
 class BetweenTest : LibraryTest() {
-    private val testData = data.getObject("value_properties")
-    private val testJsonBetween = testData.getObject("between")
+    private val testData = data.getValue("value_properties").jsonObject
+    private val testJsonBetween = testData.getValue("between").jsonObject
 
     @Test
     fun testBetweenValue() {
@@ -21,7 +23,7 @@ class BetweenTest : LibraryTest() {
 
     @Test
     fun testBetweenValueFalse() {
-        val testJson = testData.getObject("between")
+        val testJson = testData.getValue("between").jsonObject
         val rules = mapOf<String, List<Rule>>(
             "one_number" to listOf(Between(1, 3)),
             "one_string" to listOf(Between(6, 14))

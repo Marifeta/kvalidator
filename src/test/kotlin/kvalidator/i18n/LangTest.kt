@@ -1,5 +1,7 @@
 package kvalidator.i18n
 
+import kotlinx.serialization.json.getObject
+import kotlinx.serialization.json.jsonObject
 import kvalidator.LibraryTest
 import kvalidator.Validator
 import kvalidator.rules.Email
@@ -14,7 +16,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LangTest : LibraryTest() {
-    private val invalidData = data.getObject("invalid_data")
+    private val invalidData = data.getValue("invalid_data").jsonObject
 
     @Test
     fun testInvalidateRulesHasCorrectMessage() {

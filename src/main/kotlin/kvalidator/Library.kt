@@ -43,9 +43,9 @@ class Error {
 }
 
 class Validator(
-    val data: JsonElement = JsonObject(emptyMap()),
-    val rules: Map<String, List<Rule>> = emptyMap(),
-    private val lang: Dictionary = en
+        val data: JsonElement = JsonObject(emptyMap()),
+        val rules: Map<String, List<Rule>> = emptyMap(),
+        private val lang: Dictionary = en
 ) {
     private val inputErrors = Error()
 
@@ -55,8 +55,6 @@ class Validator(
 
     fun validate(): Boolean {
         when (data) {
-            is JsonNull -> println("null")
-            is JsonArray -> println("array")
             is JsonObject -> {
                 rules.forEach { (attribute, ruleItems) ->
                     ruleItems.forEach { rule ->
@@ -70,7 +68,6 @@ class Validator(
                     }
                 }
             }
-            is JsonLiteral -> println("null")
         }
         return inputErrors.count == 0
     }

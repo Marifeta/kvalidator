@@ -1,12 +1,13 @@
 
 import java.util.Date
 
-val LIBRARY_VERSION_NAME = "0.0.3"
+val LIBRARY_VERSION_NAME = "1.0.0"
 val GROUP_ID = "com.github.marifeta"
 val ARTIFACT_ID = rootProject.name
 val BINTRAY_REPOSITORY = "generic"
 val BINTRAY_ORGINIZATION = "murphy"
-val KOTLINX_SERIALIZATION_RUNTIME = "0.20.0"
+val KOTLINX_SERIALIZATION_CORE = "1.0.0-RC"
+val KOTLINX_DATETIME = "0.1.0"
 val SHORT_DESC = """
     Validator for kotlin json serialization.
 """.trimIndent()
@@ -18,8 +19,8 @@ val CONTACT_EMAIL = "diksynox@gmail.com"
 buildscript {
     repositories { jcenter() }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.71")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:1.3.71")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.0")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:1.4.0")
     }
 }
 /*
@@ -30,7 +31,7 @@ buildscript {
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.3.71"
+    id("org.jetbrains.kotlin.jvm") version "1.4.0"
     id("maven-publish")
     id("com.jfrog.bintray") version "1.8.4"
 }
@@ -72,8 +73,6 @@ fun printResults(desc: TestDescriptor, result: TestResult) {
         val testResultLine = "|  $output  |"
         val repeatLength = testResultLine.length
         val seperationLine = "-".repeat(repeatLength)
-        println(seperationLine)
-        println(testResultLine)
         println(seperationLine)
     }
 }
@@ -136,23 +135,21 @@ bintray {
 }
 
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    maven(url = "https://kotlin.bintray.com/kotlinx/") // soon will be just jcenter()
 }
 
 dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
-    // Use the Kotlin JDK 8 standard library.
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    // components
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$KOTLINX_SERIALIZATION_CORE")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$KOTLINX_DATETIME")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$KOTLINX_SERIALIZATION_RUNTIME")
-
 }

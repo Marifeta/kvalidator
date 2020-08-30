@@ -1,7 +1,6 @@
 package kvalidator.rules
 
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.*
 import kvalidator.LibraryTest
 import kvalidator.Validator
 import kotlin.test.Test
@@ -9,11 +8,11 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class UrlTest : LibraryTest() {
-    private val testData = data.getObject("web_types")
+    private val testData = data.getValue("web_types").jsonObject
 
     @Test
     fun testValidUrl() {
-        for (url in testData.getArray("url")) {
+        for (url in testData.getValue("url").jsonArray) {
             val testJson = JsonObject(mapOf("url" to url))
             val rule = mapOf<String, List<Rule>>("url" to listOf(Url()))
 

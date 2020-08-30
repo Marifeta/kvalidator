@@ -1,10 +1,10 @@
 package kvalidator.rules
 
-import kotlinx.serialization.json.JsonLiteral
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.JsonObject
-import java.time.LocalDateTime
+import kotlinx.serialization.json.JsonPrimitive
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
 
 class IsDate : Rule() {
     override val name: String = "date"
@@ -13,16 +13,22 @@ class IsDate : Rule() {
         if (!data.containsKey(attribute)) return true
 
         return when (val element = data[attribute]) {
-            is JsonLiteral -> {
+            is JsonPrimitive -> {
                 when {
                     element.isString -> {
                         return try {
-                            LocalDateTime.parse(
-                                element.content,
-                                DateTimeFormatter.ISO_LOCAL_DATE_TIME
-                            )
+                            val s = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+                            val s2 = DateTimeFormatter.ISO_DATE_TIME
+                            element.content.let { str ->
+                                // check 2020-01-01T00:00.000Z
+                                if(str.contains('Z')) {
+                                    str.toInstant()
+                                } else {
+                                    str.toLocalDateTime()
+                                }
+                            }
                             true
-                        } catch (ex: DateTimeParseException) {
+                        } catch (ex: IllegalArgumentException) {
                             false
                         }
                     }

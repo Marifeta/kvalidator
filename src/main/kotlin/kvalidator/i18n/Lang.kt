@@ -16,7 +16,7 @@ object Lang {
         return if (item is JsonArray) {
             dictionary["${rule.name}.array"] ?: fallbackDictionary["${rule.name}.array"]
             ?: missingMessage(rule, item)
-        } else if (item is JsonLiteral && item.isString) {
+        } else if (item is JsonPrimitive && item.isString) {
             dictionary["${rule.name}.string"] ?: fallbackDictionary["${rule.name}.string"]
             ?: missingMessage(rule, item)
         } else if (item is JsonPrimitive && item.doubleOrNull != null) {

@@ -1,7 +1,7 @@
 package kvalidator.rules
 
-import kotlinx.serialization.json.JsonLiteral
-import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.*
+
 
 class Accepted : Rule() {
     override val name: String = "accepted"
@@ -10,7 +10,7 @@ class Accepted : Rule() {
         if (!data.containsKey(attribute)) return false
 
         return when (val element = data[attribute]) {
-            is JsonLiteral -> {
+            is JsonPrimitive -> {
                 when {
                     element.isString && element.content == "true" -> true
                     element.isString && element.content == "yes" -> true
